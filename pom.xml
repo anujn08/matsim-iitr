@@ -16,11 +16,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<matsim.version>2024.0</matsim.version>
+		<matsim.version>2025.0</matsim.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<log4j.version>2.24.0</log4j.version>
-		<geotools.version>31.3</geotools.version>
+		<geotools.version>33.0</geotools.version>
 	</properties>
 
 	<repositories>
@@ -115,6 +115,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.geotools</groupId>
+			<artifactId>gt-geopkg</artifactId>
+			<version>${geotools.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.geotools</groupId>
 			<artifactId>gt-epsg-hsql</artifactId>
 			<version>${geotools.version}</version>
 		</dependency>
@@ -182,11 +187,11 @@
 			<artifactId>locationchoice</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.github.matsim-org</groupId>
-			<artifactId>evacuation-gui</artifactId>
-			<version>master-SNAPSHOT</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.github.matsim-org</groupId>-->
+<!--			<artifactId>evacuation-gui</artifactId>-->
+<!--			<version>master-SNAPSHOT</version>-->
+<!--		</dependency>-->
 		<dependency>
 		<groupId>org.matsim.contrib</groupId>
 		<artifactId>cadytsIntegration</artifactId>
@@ -250,6 +255,11 @@
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
 		</dependency>-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.10.0</version>
+		</dependency>
 		<dependency>
 			<groupId>se.walkercrou</groupId>
 			<artifactId>google-places-api-java</artifactId>
@@ -375,16 +385,24 @@
 		<profile>
 			<id>release</id>
 			<build>
-				<defaultGoal>assembly:assembly</defaultGoal>
+				<defaultGoal>assembly:single</defaultGoal>
 				<pluginManagement>
 					<plugins>
 						<plugin>
 							<artifactId>maven-assembly-plugin</artifactId>
+							<version>3.7.1</version>
 							<configuration>
 								<descriptors>
 									<descriptor>src/main/assembly/assembly-release.xml</descriptor>
 								</descriptors>
 							</configuration>
+							<executions>
+								<execution>
+									<goals>
+										<goal>single</goal>
+									</goals>
+								</execution>
+							</executions>
 						</plugin>
 						<plugin>
 <!--							<groupId>org.apache.maven.plugins</groupId>-->
@@ -425,9 +443,19 @@
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.13.0</version> <!-- or 2.12.0 or above -->
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-csv</artifactId>
+				<version>1.11.0</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.7</version>
+				<version>2.15.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
